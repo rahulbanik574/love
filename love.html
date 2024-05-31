@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: pink;
+            overflow: hidden; /* Prevent scrollbar appearance */
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: greenyellow;
+            cursor: pointer; /* Default cursor for buttons */
+        }
+        footer {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>I LOVE YOU</h1>
+    <button id="yesButton">YES</button>
+    <button id="noButton">NO</button>
+
+    <footer>
+        <p>© 2024 Made by Rahul Banik. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to be called when the "YES" button is clicked
+        function yesButtonClick() {
+            alert('You are my girlfriend!');
+        }
+
+        // Function to move the "NO" button to a random position
+        function moveNoButton() {
+            const noButton = document.getElementById('noButton');
+            const bodyRect = document.body.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+
+            // Calculate new random position
+            const maxX = bodyRect.width - buttonRect.width;
+            const maxY = bodyRect.height - buttonRect.height;
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+
+            // Apply new position
+            noButton.style.position = 'absolute';
+            noButton.style.left = `${newX}px`;
+            noButton.style.top = `${newY}px`;
+        }
+
+        // Add the onclick event listener to the "YES" button
+        document.getElementById('yesButton').onclick = yesButtonClick;
+
+        // Add the mouseover event listener to the "NO" button
+        let moveInterval;
+        document.getElementById('noButton').onmouseover = function() {
+            this.style.cursor = 'not-allowed';
+            moveInterval = setInterval(moveNoButton, 300); // Move every 300ms
+        };
+
+        document.getElementById('noButton').onmouseout = function() {
+            clearInterval(moveInterval); // Stop moving when mouse leaves the button
+        };
+    </script>
+</body>
+</html>
